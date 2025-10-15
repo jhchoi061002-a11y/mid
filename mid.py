@@ -26,34 +26,62 @@ class Notepad(QMainWindow):
     def create_menu_bar(self):
         """메뉴바와 액션을 생성합니다."""
         menu_bar = self.menuBar()
+        
+        # 파일 메뉴
         file_menu = menu_bar.addMenu("파일")
 
-        # 새로 만들기 액션
         new_action = QAction("새로 만들기", self)
         new_action.triggered.connect(self.new_file)
         file_menu.addAction(new_action)
 
-        # 열기 액션
         open_action = QAction("열기", self)
         open_action.triggered.connect(self.open_file)
         file_menu.addAction(open_action)
 
-        # 저장 액션
         save_action = QAction("저장", self)
         save_action.triggered.connect(self.save_file)
         file_menu.addAction(save_action)
         
-        # 다른 이름으로 저장 액션
         save_as_action = QAction("다른 이름으로 저장", self)
         save_as_action.triggered.connect(self.save_as_file)
         file_menu.addAction(save_as_action)
 
         file_menu.addSeparator()
 
-        # 종료 액션
         exit_action = QAction("종료", self)
         exit_action.triggered.connect(self.close)
         file_menu.addAction(exit_action)
+
+        # 편집 메뉴
+        edit_menu = menu_bar.addMenu("편집")
+
+        undo_action = QAction("실행 취소", self)
+        undo_action.triggered.connect(self.text_edit.undo)
+        edit_menu.addAction(undo_action)
+
+        redo_action = QAction("다시 실행", self)
+        redo_action.triggered.connect(self.text_edit.redo)
+        edit_menu.addAction(redo_action)
+
+        edit_menu.addSeparator()
+
+        cut_action = QAction("잘라내기", self)
+        cut_action.triggered.connect(self.text_edit.cut)
+        edit_menu.addAction(cut_action)
+
+        copy_action = QAction("복사", self)
+        copy_action.triggered.connect(self.text_edit.copy)
+        edit_menu.addAction(copy_action)
+
+        paste_action = QAction("붙여넣기", self)
+        paste_action.triggered.connect(self.text_edit.paste)
+        edit_menu.addAction(paste_action)
+
+        edit_menu.addSeparator()
+
+        select_all_action = QAction("모두 선택", self)
+        select_all_action.triggered.connect(self.text_edit.selectAll)
+        edit_menu.addAction(select_all_action)
 
     def new_file(self):
         """새 파일을 생성합니다."""
